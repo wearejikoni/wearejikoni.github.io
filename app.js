@@ -24,10 +24,7 @@
   const roomsStatus = document.getElementById("roomsStatus");
   const roomsStatusValue = document.getElementById("roomsStatusValue");
   const happeningValue = document.getElementById("happeningValue");
-  const menuStay = document.getElementById("menuStay");
 
-  const fireButton = document.querySelector('[data-action="fire"]');
-  const closeDoorButton = document.querySelector('[data-action="close-door"]');
 
   const STORAGE_DOOR = "jikoniDoorState";
   const STORAGE_LANG = "jikoniLanguage";
@@ -41,7 +38,9 @@
     "become-part",
     "follow",
     "contact",
-    "my-jikoni"
+    "connect",
+    "create",
+    "celebrate"
   ];
 
   function getStored(key) {
@@ -95,7 +94,6 @@
 
     if (links.airbnb) {
       roomsStatus.href = links.airbnb;
-      menuStay.href = links.airbnb;
     }
 
     liveStatus.textContent = outside.liveStatus || "OFFLINE";
@@ -122,7 +120,6 @@
     if (options.clearHash !== false && window.location.hash) {
       history.replaceState(null, "", window.location.pathname);
     }
-    updateDoorMenuButton();
   }
 
   function closeDoor() {
@@ -139,7 +136,6 @@
     if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname);
     }
-    updateDoorMenuButton();
   }
 
   function openFire() {
@@ -177,7 +173,6 @@
     }
 
     closeMenu();
-    updateDoorMenuButton();
   }
 
   function renderRoute(route, scrollTop) {
@@ -204,13 +199,63 @@
       setupContactForm();
     }
 
-    if (route === "my-jikoni") {
-      contentArea.innerHTML = renderMyJikoni();
-    }
+    if (route === "connect") contentArea.innerHTML = renderConnect();
+    if (route === "create") contentArea.innerHTML = renderCreate();
+    if (route === "celebrate") contentArea.innerHTML = renderCelebrate();
 
     if (scrollTop) {
       contentLayer.scrollTop = 0;
     }
+  }
+
+  function renderConnect() {
+    const links = DATA.links || {};
+    return `
+      <article>
+        <h1>Connect</h1>
+        <section><h2>Contact Us</h2>
+          <p>${escapeHtml(t("contactIntro"))}</p>
+          <a href="#contact" data-route="contact">${escapeHtml(t("contactTitle"))} →</a>
+        </section>
+        <section><h2>Stay</h2>
+          <p>${escapeHtml(t("stayIntro"))}</p>
+          <a href="${escapeHtml(links.airbnb || "https://www.airbnb.com/")}" target="_blank" rel="noopener noreferrer">Airbnb ↗</a>
+        </section>
+        <section><h2>Become Part</h2>
+          <p>${escapeHtml(t("becomePartIntro"))}</p>
+          <a href="#become-part" data-route="become-part">${escapeHtml(t("becomePartTitle"))} →</a>
+        </section>
+        <section><h2>${escapeHtml(t("followTitle"))}</h2>
+          <p>${escapeHtml(t("followIntro"))}</p>
+          <a href="#follow" data-route="follow">${escapeHtml(t("followTitle"))} →</a>
+        </section>
+      </article>`;
+  }
+
+  function renderCreate() {
+    const workshop = (DATA.experiences || []).find(item => item.id === "build-the-jiko");
+    const url = DATA.links && DATA.links.workshop;
+    return `
+      <article>
+        <h1>Create</h1>
+        <section>
+          <h2>${escapeHtml(workshop ? workshop.title : "Build the Jiko")}</h2>
+          <p>${escapeHtml(t("workshopIntro"))}</p>
+          ${workshop ? `<p><strong>${escapeHtml(workshop.date)}</strong></p><p>${escapeHtml(workshop.text)}</p>` : ""}
+          ${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("workshopLink"))} ↗</a>` : `<p>${escapeHtml(t("workshopSoon"))}</p>`}
+        </section>
+      </article>`;
+  }
+
+  function renderCelebrate() {
+    const supporters = DATA.supporters || [];
+    return `
+      <article>
+        <h1>Celebrate</h1>
+        <h2>Wall of Fame</h2>
+        <p>${escapeHtml(t("celebrateIntro"))}</p>
+        ${supporters.length ? `<ul class="supporter-list">${supporters.map(person => `<li>${escapeHtml(person)}</li>`).join("")}</ul>` : `<p>${escapeHtml(t("supportersSoon"))}</p>`}
+      </article>`;
   }
 
   function renderOurStory() {
@@ -375,15 +420,6 @@
     `;
   }
 
-  function renderMyJikoni() {
-    return `
-      <article>
-        <h1>${escapeHtml(t("myJikoniTitle"))}</h1>
-        <p>${escapeHtml(t("myJikoniIntro"))}</p>
-      </article>
-    `;
-  }
-
   function setupContactForm() {
     const form = document.getElementById("contactForm");
     const status = document.getElementById("contactStatus");
@@ -400,10 +436,12 @@
 
   function toggleMenu() {
     mainMenu.hidden = !mainMenu.hidden;
+    menuButton.setAttribute("aria-expanded", String(!mainMenu.hidden));
   }
 
   function closeMenu() {
     mainMenu.hidden = true;
+    menuButton.setAttribute("aria-expanded", "false");
   }
 
   function handleHashRoute() {
@@ -428,19 +466,6 @@
       closeDoor();
     }
   }
-function updateDoorMenuButton() {
-  if (!fireButton || !closeDoorButton) return;
-
-  if (outsideLayer.hidden) {
-    fireButton.hidden = true;
-    closeDoorButton.hidden = false;
-    closeDoorButton.textContent = "NJE";
-  } else {
-    fireButton.hidden = false;
-    closeDoorButton.hidden = true;
-    fireButton.textContent = "JIKO";
-  }
-}
   doorKnocker.addEventListener("click", function () {
     openDoor({ persist: true, clearHash: true });
   });
@@ -487,17 +512,7 @@ function updateDoorMenuButton() {
     openFire();
   }
 
-if (action === "close-door") {
-  event.preventDefault();
 
-  if (outsideLayer.hidden) {
-    closeDoor();
-  } else {
-    openDoor({ persist: true, clearHash: true });
-  }
-
-  closeMenu();
-}
   }
 
     if (
@@ -508,9 +523,17 @@ if (action === "close-door") {
     }
   });
 
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !mainMenu.hidden) {
+      closeMenu();
+      menuButton.focus();
+    }
+  });
+
   window.addEventListener("hashchange", handleHashRoute);
 
   applySiteData();
   applyLanguage();
   handleHashRoute();
 })();
+

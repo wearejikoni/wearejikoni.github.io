@@ -1,5 +1,12 @@
 window.JIKONI_TEXT = {
   en: {
+    stayIntro: "Stay with us and become part of everyday life at Jikoni.",
+    workshopIntro: "Join our first building workshop and help create the outdoor clay kitchen — the heart of Jikoni.",
+    workshopLink: "Discover the workshop",
+    workshopSoon: "More workshop details coming soon.",
+    celebrateIntro: "To everyone who has helped bring Jikoni to life: thank you for your time, your ideas, your hands and your support. This wall is for you.",
+    supportersSoon: "Soon, we will celebrate our supporters here by name.",
+
     knockToEnter: "Knock to enter",
     welcome: "Welcome to Jikoni",
     nextRetreat: "NEXT RETREAT",
@@ -57,6 +64,13 @@ window.JIKONI_TEXT = {
   },
 
   de: {
+    stayIntro: "Bleib bei uns und werde Teil des Alltags in Jikoni.",
+    workshopIntro: "Baue bei unserem ersten Workshop mit uns die Lehmküche im Freien – das Herz von Jikoni.",
+    workshopLink: "Mehr zum Workshop",
+    workshopSoon: "Weitere Informationen zum Workshop folgen bald.",
+    celebrateIntro: "An alle, die Jikoni bisher möglich gemacht haben: Danke für eure Zeit, eure Ideen, eure Hände und eure Unterstützung. Diese Wand gehört euch.",
+    supportersSoon: "Bald feiern wir unsere Unterstützer hier auch mit ihren Namen.",
+
     knockToEnter: "Klopfen und eintreten",
     welcome: "Willkommen bei Jikoni",
     nextRetreat: "NÄCHSTES RETREAT",
@@ -227,3 +241,4 @@ window.JIKONI_TEXT = {
     openWhatsapp: "Hingũra WhatsApp ↗"
   }
 };
+

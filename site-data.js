@@ -1,5 +1,10 @@
 window.JIKONI_DATA = {
+  // Add supporter names here once confirmed for the Wall of Fame.
+  supporters: [],
+
   links: {
+    // External workshop announcement URL; leave empty until available.
+    workshop: "",
     airbnb: "https://www.airbnb.com/",
     instagram: "https://www.instagram.com/",
     linkedin: "https://www.linkedin.com/",
@@ -126,3 +131,4 @@ window.JIKONI_DATA = {
     }
   ]
 };
+

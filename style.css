@@ -457,3 +457,13 @@ a {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Simple content pages */
+.content-layer a { color: #f4d6a0; text-underline-offset: 3px; }
+.content-layer section { margin: 0 0 28px; }
+.content-layer p { line-height: 1.6; }
+.content-layer input, .content-layer textarea { max-width: 100%; }
+.supporter-list { list-style: none; padding: 0; }
+.supporter-list li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.18); font-size: 1.15em; }
+.main-menu button:focus-visible { outline: 2px solid #f4d6a0; outline-offset: 2px; }

@@ -15,7 +15,7 @@
 
   <title>We Are Jikoni</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 
 <body>
@@ -36,6 +36,8 @@
       class="menu-button"
       type="button"
       aria-label="Open menu"
+      aria-controls="mainMenu"
+      aria-expanded="false"
     >
       ☰
     </button>
@@ -180,47 +182,10 @@
       hidden
     >
 
-      <button type="button" data-action="fire">
-        FIRE / HOME
-      </button>
-
-
-      <button type="button" data-action="close-door">
-  CLOSE DOOR
-</button>
-      
-      <button type="button" data-route="our-story">
-        OUR STORY
-      </button>
-
-      <a
-        id="menuStay"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        STAY ↗
-      </a>
-
-      <button type="button" data-route="experience">
-        EXPERIENCE
-      </button>
-
-      <button type="button" data-route="become-part">
-        BECOME PART
-      </button>
-
-      <button type="button" data-route="follow">
-        FOLLOW US
-      </button>
-
-      <button type="button" data-route="contact">
-        CONTACT
-      </button>
-
-      <button type="button" data-route="my-jikoni">
-        MY JIKONI / LOGIN
-      </button>
+      <button type="button" data-action="fire">JIKONI</button>
+      <button type="button" data-route="connect">CONNECT</button>
+      <button type="button" data-route="create">CREATE</button>
+      <button type="button" data-route="celebrate">CELEBRATE</button>
 
     </nav>
 
@@ -233,9 +198,10 @@
     Then website behaviour
   -->
 
-  <script src="site-data.js"></script>
-  <script src="content.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="site-data.js?v=4"></script>
+  <script src="content.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 
 </body>
 </html>
+
